@@ -1,13 +1,13 @@
 \chapter[Problema 01]{Problema 01}
 
 Este capítulo discorrerá sobre o funcionamento de alguns protocolos utilizando uma ferramenta
-de captura de pacotes selecionalada. Ele conterá quatro tópicos, onde são mencionados os protocolos
+de captura de pacotes selecionada. Ele conterá quatro tópicos, onde são mencionados os protocolos
 HTTP, FTP e DNS, bem como a configuração da ferramenta. Não haverá um capítulo exclusivo para
 TCP ou UDP pois estes serão explicados nos capítulos já mencionados.
 
 \section{Configuração do Capturador de Pacotes}
 
-O analizador de pacotes escolhido foi o Wireshark, pois este traz uma facilidade para a visualização
+O analisador de pacotes escolhido foi o Wireshark, pois este traz uma facilidade para a visualização
 dos pacotes.
 Para instalá-lo, foram utilizados os passos citados por \cite{instalacaowireshark}
 
@@ -29,7 +29,7 @@ servidor no IP e porta mencionados deve-se utilizar o comando:
 python -m SimpleHTTPServer 8000
 
 A ferramenta de captura utilizada foi Wireshark, nativa no sistema operacional utilizado.
-Este foi iniciado e configurado para analizar os pacotes da interface Loopback: lo.
+Este foi iniciado e configurado para analisar os pacotes da interface Loopback: lo.
 
 
 \begin{itemize}
@@ -57,16 +57,16 @@ pedido de SYN do Cliente, mais conhecido como primeiro passo do three way handsh
   \end{figure}
 
 O segundo pacote é uma resposta do servidor ao cliente, onde ele envia um ACK (acknowledgment)
-para o Cliente, confirmando o seu pedido de sincronizaçao. O seu numero de Ack é o 1, confimando
+para o Cliente, confirmando o seu pedido de sincronização. O seu numero de Ack é o 1, confirmando
 que recebeu o número de sequência 0 do cliente e solicitando seu sucessor, o Seq = 1. Ao mesmo tempo,
   o servidor envia um SYN para o cliente com o objetivo de confirmar que está disponível para
-  estabelecer uma coneção.
+  estabelecer uma conexão.
 
 O terceiro e último passo do three way handshake é a confirmação da conexão do cliente para com o
 servidor, ao enviar um ACK para o pedido de SYN.
 
 Logo  após a execução do three way handshake e a conexão estabelecida, o cliente envia a sua
-  requisição de página com o método GET. Este envia a pensagem com o cabeçalho especificando
+  requisição de página com o método GET. Este envia a mensagem com o cabeçalho especificando
   o que deseja do servidor:
 
 Message: GET /WebContent/teste.html HTTP/ 1.1
@@ -88,7 +88,7 @@ Terminando a conexão, o servidor emitiu a confirmação do pedido de finalizaç
 
 
 \section{Protocolo FTP}
-\subsection{Configuração do Ambiente para a captura de pacotes utilizando protocolo HTTP}
+\subsection{Configuração do Ambiente para a captura de pacotes utilizando protocolo FTP}
 A captura de pacotes foi procedida no Sistema operacional Linux kali 3.18.0 - kali 3 - amd64
 Debian 3.18.6 - 1 GNU Linux.
 
@@ -98,8 +98,7 @@ endereço de IP desejado. Esta foi instalada e configurada de acordo com os pass
 
 Dessa maneira, a aplicação FTP foi iniciada na porta 21 da interface de rede Loopback.
 
-A ferramenta de captura utilizada foi Wireshark, nativa no sistema operacional utilizado. Este foi
-iniciado e configurado para analizar os pacotes da interface Loopback: lo.
+A ferramenta de captura utilizada foi Wireshark, nativa no sistema operacional utilizado. Este foi iniciado e configurado para analisar os pacotes da interface Loopback: lo.
 
 
 \begin{itemize}
@@ -128,10 +127,9 @@ número de sequência deste é o 0 (Zero).
 \end{figure}
 
 O segundo pacote é uma resposta do servidor ao cliente, onde ele envia um ACK (acknowledgment)
-para o Cliente, confirmando o seu pedido de sincronizaçao. O seu numero de Ack é o 1, confimando
-que recebeu o número de sequência 0 do cliente e solicitando seu sucessor, o Seq = 1. Ao mesmo
+para o Cliente, confirmando o seu pedido de sincronização. O seu numero de Ack é o 1, confirmando que recebeu o número de sequência 0 do cliente e solicitando seu sucessor, o Seq = 1. Ao mesmo
 tempo, o servidor envia um SYN para o cliente com o objetivo de confirmar que está disponível
- para estabelecer uma coneção.
+ para estabelecer uma conexão.
 
 O terceiro e último passo do three way handshake é a confirmação da conexão do cliente para
 com o servidor, ao enviar um ACK para o pedido de SYN.
@@ -173,7 +171,7 @@ uma conexão de dados (FTP-data) para enviar o arquivo. O arquivo é recebido co
 conexão TCP é finalizada, de acordo com o ilustrado na Figura \ref{ref:ftp2}.
 
 \subsection{Capturas de Encerramento}
-Logo após receber a mensagem do cliente  contendo a mensage QUIT, a conexão pode ser encerrada.
+Logo após receber a mensagem do cliente  contendo a mensagem QUIT, a conexão pode ser encerrada.
  Esse processo é iniciado quando o cliente envia um ACK, com número de Seq=299, para o servidor
   quando recebe o payload da requisição executada.
 
@@ -187,3 +185,62 @@ também executa o pedido de FIN, com seq = 88.
 Terminando a conexão, o servidor emitiu a confirmação do pedido de finalização com o ACK = 89.
 
 \section{Protocolo DNS}
+
+A captura de pacotes foi procedida no Sistema operacional Elementary OS 0.3.1 Freya
+
+Foi utilizado o servidor local de DNS e a ferramenta de captura utilizada foi Wireshark  configurado para analisar os pacotes da interface wlan0.
+
+\begin{itemize}
+
+    \item Protocolo de Transporte Utilizado: UDP
+
+    \item Endereço de IP e porta do Cliente: 172.16.5.158: 13706 
+
+    \item Endereço de IP e porta do Servidor: 172.16.5.1: 53
+
+\end{itemize}
+
+\subsection{Conexão DNS}
+Na Figura \ref{fig:http} , pode ser observado que o pacote de número 7 realiza um requisição informando o id da transação: 0x0e51, o tipo do servidor: A e por ultimo uma query com o domínio no qual ele deseja obter o endereço de IP: matriculaweb.unb.br. 
+
+
+  \begin{figure}[h]
+    \centering
+
+    \includegraphics[width=450px, scale=1]{figuras/dns}
+    \caption{Capturas de Pacotes em uma transação DNS}
+
+ \label{fig:dns}
+  \end{figure}
+
+O pacote seguinte contém a resposta para a requisição. Ele informa o endereço de IP 164.41.102.148 correspondente ao domínio.
+
+\section{Protocolo UDP}
+
+A captura de pacotes foi procedida no Sistema operacional Elementary OS 0.3.1 Freya.
+
+Realizou-se uma conexão UDP no servidor local. A ferramenta de captura utilizada foi Wireshark analisando os pacotes da interface wlan0.
+
+\begin{itemize}
+
+    \item Protocolo de Transporte Utilizado: UDP
+
+    \item Endereço de IP e porta do Cliente: 192.168.25.47: 57621 
+
+    \item Endereço de IP e porta do Servidor: broadcast: 57621
+
+\end{itemize}
+
+
+
+\subsection{Conexão UDP}
+Na Figura \ref{fig:http}, observa-se uma conexão UDP. O pacote  de número 2371  possui em seu cabeçado os endereços da porta de origem e destino.
+
+  \begin{figure}[h]
+    \centering
+
+    \includegraphics[width=450px, scale=1]{figuras/udp}
+    \caption{Capturas de Pacotes em uma transação UDP}
+
+ \label{fig:dns}
+  \end{figure}
