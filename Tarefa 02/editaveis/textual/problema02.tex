@@ -84,11 +84,11 @@ Neste caso, percebe-se que um pacote foi perdido dos nove pacotes enviados. No e
 
 O \textbf{NMAP} é uma ferramenta útil para verificar rapidamente as portas abertas em determinado host, seja na sua rede local, seja na Internet.
 
-Durante a utlização da ferramenta, foi verificada a utilização do DNS na camada de aplicação para a resolução do endereço de host passado (google.com). Neste caso, foi utilizado o protocolo UDP para a camada de transporte e o protocolo IPv4 na camada de rede.
+Durante a utilização da ferramenta, foi verificado o uso do protocolo DNS da camada de aplicação para a resolução do endereço de host passado (google.com). Neste caso, foi utilizado o protocolo UDP para a camada de transporte e o protocolo IPv4 na camada de rede.
 
 Uma vez resolvido o endereço de IP de destino para o host google.com(\emph{186.215.92.89}), os pacotes trocados entre o host de teste e o host de destino, utilizaram o TCP como protocolo de transporte e o IPv4 como protocolo de rede.
 
-O processo típico de testes proporcionado pelo \textbf{NMAP} consiste na inicialização do analisador de pacotes, configurando­o para monitorar uma porta de rede do dispositivo utilizado para o teste. O \textbf{NMAP} recebe o host com o qual deverá se comunicar através de linha de comando nos sistemas Unix. Uma vez que a troca de pacotes entre o host local de teste e o host indicado pelo comando ocorre utilizando­se a porta que está sendo monitorada, todos os pacotes trocados farão parte da lista de pacotes monitorados pelo analisador e pacotes.
+O processo típico de testes proporcionado pelo \textbf{NMAP} consiste na inicialização do analisador de pacotes, configurando­ para monitorar uma porta de rede do dispositivo utilizado para o teste. O \textbf{NMAP} recebe o host com o qual deverá se comunicar através de linha de comando nos sistemas Unix. Uma vez que a troca de pacotes entre o host local de teste e o host indicado pelo comando ocorre utilizando­-se a porta que está sendo monitorada, todos os pacotes trocados farão parte da lista de pacotes monitorados pelo analisador e pacotes.
 
 O \textbf{NMAP} também é capaz de mostrar todas as portas que podem ser utilizadas para a comunicação com o host de destino e o tipo de serviço oferecido pela porta.
 
@@ -113,4 +113,4 @@ O endereço de IP de destino para o host google.com encontrado no primeiro teste
 
 O processo de testes utilizado pelo \textbf{Traceroute} se baseia na conexão entre roteadores do caminho entre o host de origem e o host de destino. O \textbf{Traceroute} faz a troca de pacotes entre os hosts afim de apontar quantos e quais serão os hops do caminho que um pacote deverá seguir para que ocorra a troca de pacotes entre os mesmos.
 
-Foram identificados pacotes que apotavam problemas com o TTL, indicando que o mesmo era de valor baixo ou não experado.
+Foram identificados pacotes que apontavam problemas com o TTL, indicando que o mesmo era de valor baixo ou não experado.
